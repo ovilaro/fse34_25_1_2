@@ -22,11 +22,25 @@ class _PeopleListState extends State<PeopleList> {
             _suggestions.add(_randomNames.fullName());
           }
         }
-        return Column(
-          children: [
-            ListTile(title: Text(_suggestions[i], style: _biggerFont)),
-            const Divider(),
-          ],
+        return Dismissible(
+          key: UniqueKey(),
+          onDismissed: (direction) => direction == DismissDirection.endToStart
+              ? debugPrint("Cap a l'esquerra")
+              : debugPrint("Cap a la dreta"),
+          child: Column(
+            children: [
+              ListTile(
+                leading: Icon(Icons.person),
+                title: Text(_suggestions[i], style: _biggerFont),
+                subtitle: Text("Persona: $i"),
+                trailing: Icon(Icons.chevron_right),
+                onTap: () {
+                  debugPrint("Persona premuda: $i");
+                },
+              ),
+              const Divider(),
+            ],
+          ),
         );
       },
     );
